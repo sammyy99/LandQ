@@ -1,12 +1,15 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import ChildHook from './ChildHook'
 import ChildHookTwo from './ChildHookTwo'
+import UserContext from '../utils/UserContext'
 
 const Hooks = () => {
 
     const [count, setCount] = useState(0) // for parent component
     const [childCount, setChildComponent] = useState(0) // for example of useMemo
     const [childTwoCount, setChildTwoCount] = useState(0) // for exmaple of useCallback
+
+    const {loggedUser} = useContext(UserContext)
 
     const handleClick = ()=>{
         setCount(count+1)
@@ -31,6 +34,7 @@ const Hooks = () => {
     console.log("Parent re-rendered")
   return (
     <div>
+        <p className='my-5'>User: +{loggedUser}</p>
         <button className='px-2 py-1 border-black border' onClick={()=>{handleClick()}}>Click for parent</button>
         <button className='px-2 py-1 border-black border' onClick={()=>{handleClickChild()}}>Click for child</button>
         {memoizedChild}
